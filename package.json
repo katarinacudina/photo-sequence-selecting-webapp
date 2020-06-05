@@ -1,0 +1,22 @@
+{
+  "name": "photo-sequence-selecting-webapp",
+  "version": "1.0.0",
+  "description": "React.js/Express.js web application",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katarinacudina/photo-sequence-selecting-webapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/katarinacudina/photo-sequence-selecting-webapp/issues"
+  },
+  "homepage": "https://github.com/katarinacudina/photo-sequence-selecting-webapp#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
