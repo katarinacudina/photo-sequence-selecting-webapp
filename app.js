@@ -1,7 +1,13 @@
 const express = require("express");
-const app = express();
+const cors = require("cors");
+const bodyParser = require("body-parser");
 const port = 3000;
+const userRouter = require("./routes/users/users.js");
 
-app.get("/", (req, res) => res.send("Hello World !"));
+const app = express();
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use("/users", userRouter);
 
 app.listen(port, () => console.log("App listening on port", port));
