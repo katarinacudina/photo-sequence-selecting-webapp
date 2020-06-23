@@ -8,9 +8,7 @@ const {
 
 users.get("/", getUsers);
 users.get("/:id", getUser);
-users.post("/", createUser);
+users.post("/createUser", createUser);
 users.delete("/:id", deleteUser);
-//create user
-//delete user
 
 module.exports = users;

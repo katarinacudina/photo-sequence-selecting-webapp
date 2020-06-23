@@ -1,0 +1,15 @@
+.signin-container__row {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.signin-container__row > input {
+  min-width: 20rem;
+  min-height: 2.5em;
+}
+.default-button {
+  text-transform: uppercase;
+  padding: 0.4em 0.7em;
+  margin: 1em 0.5em;
+  box-shadow: 0 0 2px;
+}
