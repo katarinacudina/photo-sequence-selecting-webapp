@@ -8,14 +8,16 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const saveToken = (token) => window.localStorage.setItem(token);
+
   const formSubmitHandler = (e) => {
     e.preventDefault();
     checkUser();
   };
   const checkUser = () => {
     axios
-      .get(`http://localhost:3000/users/${email}/${password}`)
-      .then((res) => console.log(res))
+      .get(`http://localhost:3000/auth/logIn/${email}/${password}`)
+      .then((res) => () => saveToken(res.data.token))
       .catch((err) => console.log(err));
   };
   return (

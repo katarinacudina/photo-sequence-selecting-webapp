@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Input from "./Inputs/Input";
 import "./Forms.css";
 
-const Signin = () => {
+const Signin = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -14,12 +14,16 @@ const Signin = () => {
   };
   const saveUser = () => {
     axios
-      .post("http://localhost:3000/users/createUser", {
+      .post("http://localhost:3000/auth/signUp", {
         email,
         password,
         phoneNumber,
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res.status);
+        if (res.status === 200) props.history.push("/auth/login");
+      })
+
       .catch((err) => console.log(err));
   };
   return (

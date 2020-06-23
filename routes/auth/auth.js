@@ -1,3 +1,8 @@
-const router = require("express").Router;
+const auth = require("express").Router();
+const { signUp, logIn } = require("../../queries/auth");
 
-module.exports = router;
+auth.post("/signUp", signUp);
+auth.get("/logIn/:email/:password", logIn);
+auth.get("/verifyToken");
+
+module.exports = auth;
