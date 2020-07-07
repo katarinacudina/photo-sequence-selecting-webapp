@@ -4,10 +4,12 @@ import LoginForm from "./components/Forms/Login";
 import SubmitForm from "./components/Forms/Signin";
 import NotFound from "./components/Routes/NotFound.js";
 import ProtectedRoute from "./components/Routes/ProtectedRoute";
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
+  // eslint-disable-next-line
   Link,
   Redirect,
 } from "react-router-dom";
