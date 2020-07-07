@@ -1,6 +1,9 @@
 const db = require("../db/index");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const {
+  hashPassword,
+  comparePassword,
+  generateJWToken,
+} = require("./authHelper");
 
 //////////SIGN UP/////////////////
 const signUp = async (req, res, next) => {
@@ -9,13 +12,11 @@ const signUp = async (req, res, next) => {
     if (!req.body.email || !req.body.password) {
       return res.status(400).send({ message: "Some values are missing" });
     }
-    console.log("ok");
     //check if user with that email exists
     let userExists = await db.any(
       "SELECT EXISTS(SELECT 1 FROM account WHERE email=$1);",
       req.body.email
     );
-    console.log("ok", userExists);
 
     if (userExists.exists)
       return res
@@ -34,16 +35,6 @@ const signUp = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-};
-const hashPassword = (password) => {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
-};
-const comparePassword = async (hashPassword, password) => {
-  return await bcrypt.compareSync(password, hashPassword);
-};
-const generateJWToken = (userId) => {
-  secret = "Moja zvijezda sjajna";
-  return jwt.sign({ userId }, secret, { expiresIn: "1 day" });
 };
 
 ///////////////////////////////
@@ -64,11 +55,12 @@ const logIn = async (req, res, next) => {
       res.status(400).json({ message: "Password incorrect." });
     //generate token
     const token = generateJWToken(user.user_id);
-    res.status(200).json({ token });
+    res.cookie("token", token, { httpOnly: true }).sendStatus(200);
   } catch (err) {
     next(err);
   }
 };
+
 module.exports = {
   signUp,
   logIn,

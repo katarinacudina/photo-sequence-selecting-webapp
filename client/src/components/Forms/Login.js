@@ -4,11 +4,9 @@ import { Link } from "react-router-dom";
 import Input from "./Inputs/Input";
 import "./Forms.css";
 
-const Login = () => {
+const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const saveToken = (token) => window.localStorage.setItem(token);
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -16,10 +14,15 @@ const Login = () => {
   };
   const checkUser = () => {
     axios
-      .get(`http://localhost:3000/auth/logIn/${email}/${password}`)
-      .then((res) => () => saveToken(res.data.token))
+      .get(`http://localhost:3000/auth/logIn/${email}/${password}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        res.status === 200 && redirectToMain();
+      })
       .catch((err) => console.log(err));
   };
+  const redirectToMain = () => props.history.push("/home");
   return (
     <div className="signin-container">
       <form className="signin-form" onSubmit={formSubmitHandler}>
