@@ -3,7 +3,6 @@ import Button from "../Forms/Inputs/Button";
 import axios from "axios";
 
 const UserTableRow = ({ user, reloadUsers }) => {
-  console.log(user);
   const deleteUser = () => {
     if (window.confirm("Are you sure you want to delete this user?"))
       axios

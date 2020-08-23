@@ -4,6 +4,9 @@ header {
   min-height: 5em;
   display: flex;
 }
+.header-title {
+  cursor: pointer;
+}
 footer {
   background-color: #282828;
   position: absolute;

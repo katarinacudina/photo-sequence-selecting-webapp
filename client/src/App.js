@@ -17,13 +17,15 @@ import {
 import Header from "./components/Headers/Header";
 import Footer from "./components/Headers/Footer";
 import Layout from "./components/Layout/Layout";
+import ImageViewer from "./components/ImagePreview/ImageSlider";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Header />
-        <div className="container">
+        <ImageViewer />
+        {/* <div className="container">
           <Switch>
             <Route
               exact
@@ -35,7 +37,7 @@ function App() {
             <ProtectedRoute exact path="/home" component={Layout} />
             <Route path="*" component={NotFound} />
           </Switch>
-        </div>
+        </div> */}
 
         <Footer />
       </Router>
