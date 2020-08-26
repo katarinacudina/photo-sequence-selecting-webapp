@@ -3,7 +3,7 @@ const {
   hashPassword,
   comparePassword,
   generateJWToken,
-} = require("./authHelper");
+} = require("./helpers/authHelper");
 
 //////////SIGN UP/////////////////
 const signUp = async (req, res, next) => {
