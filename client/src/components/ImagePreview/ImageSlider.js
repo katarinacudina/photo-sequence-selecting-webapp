@@ -1,26 +1,43 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
+
 import AreaSelector from "./AreaSelector";
 import "./ImagePreview.css";
+import axios from "axios";
 
 const ImageViewer = () => {
-  return (
-    <div className="slider-container">
-      <FontAwesomeIcon
-        icon={faChevronLeft}
-        className="slider-container_arrow-icons"
-      />
-      <AreaSelector />
-      <FontAwesomeIcon
-        icon={faChevronRight}
-        className="slider-container_arrow-icons"
-      />
-    </div>
-  );
+  const loadImageList = () => {
+    axios
+      .get("http://localhost:3000/images/")
+      .then((res) => setImageList(res.data))
+      .catch((error) => console.log("Something went wrong", error));
+  };
+  useEffect(() => {
+    async function fetchData() {
+      await loadImageList();
+    }
+    fetchData();
+  }, []);
+  const nextImage = () => {
+    let index = currentImageIndex + 1;
+    setIndex(index);
+  };
+
+  /**USE STATE */
+  const [imageList, setImageList] = useState([]);
+  const [currentImageIndex, setIndex] = useState(0);
+  if (imageList.length > 0)
+    return (
+      <div className="slider-container">
+        {console.log(imageList[currentImageIndex])}
+        {
+          <AreaSelector
+            nextImage={nextImage}
+            imageToDisplay={imageList[currentImageIndex]}
+          />
+        }
+      </div>
+    );
+  else return <div>Loading</div>;
 };
 
 export default ImageViewer;

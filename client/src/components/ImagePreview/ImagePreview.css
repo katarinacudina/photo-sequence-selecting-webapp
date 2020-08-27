@@ -1,7 +1,6 @@
 .slider-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
   padding: 2em 0.5em;
 }
 .slider-container_arrow-icons {
@@ -11,4 +10,11 @@
 }
 .slider-container_arrow-icons:hover {
   filter: drop-shadow(2px 1px 1px grey);
+}
+.manage-image__row {
+  display: flex;
+  justify-content: space-between;
+}
+.selection-row > svg {
+  cursor: pointer;
 }

@@ -1,5 +1,7 @@
 import React from "react";
 import "./App.css";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
 import LoginForm from "./components/Forms/Login";
 import SubmitForm from "./components/Forms/Signin";
 import NotFound from "./components/Routes/NotFound.js";
@@ -18,6 +20,8 @@ import Header from "./components/Headers/Header";
 import Footer from "./components/Headers/Footer";
 import Layout from "./components/Layout/Layout";
 import ImageViewer from "./components/ImagePreview/ImageSlider";
+
+library.add(faTimes);
 
 function App() {
   return (
@@ -39,7 +43,7 @@ function App() {
           </Switch>
         </div> */}
 
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     </div>
   );
