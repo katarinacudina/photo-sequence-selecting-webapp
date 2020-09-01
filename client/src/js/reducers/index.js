@@ -1,8 +1,9 @@
-import { SET_EMAIL, SET_ROLE } from "../constants/action-types";
+import { SET_EMAIL, SET_ROLE, SET_USER } from "../constants/action-types";
 
 const initialState = {
   email: "",
   role: "",
+  user: {},
 };
 
 function rootReducer(state = initialState, action) {
@@ -10,6 +11,8 @@ function rootReducer(state = initialState, action) {
     case SET_EMAIL:
       return action.payload;
     case SET_ROLE:
+      return action.payload;
+    case SET_USER:
       return action.payload;
     default:
       return state;

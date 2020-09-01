@@ -1,6 +1,6 @@
 import React from "react";
 import SelectionRow from "./SelectionRow";
-import Button from "../Forms/Inputs/Button";
+import Button from "../../Forms/Inputs/Button";
 
 const ManageImage = (props) => {
   return (

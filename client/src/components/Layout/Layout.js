@@ -1,28 +1,17 @@
 import React from "react";
 import AdminView from "../Administrator/AdminView";
+import UserView from "./UserView";
+import { connect } from "react-redux";
 
-const Layout = () => {
-  const fetchMe = () => {
-    fetch(`http://localhost:3000/auth/verifyToken`, { credentials: "include" })
-      .then((res) => {
-        if (res.status === 200) {
-          console.log("200");
-        } else {
-          const error = new Error(res.error);
-          throw error;
-        }
-      })
-      .catch((err) => {
-        console.log("not 200");
-        console.error(err);
-      });
-  };
-  return (
-    <div>
-      <button onClick={fetchMe}>click me</button>
-      <AdminView />
-    </div>
-  );
+const Layout = (props) => {
+  if (props.is_admin) {
+    return <AdminView />;
+  } else if (!props.is_admin) {
+    console.log(props);
+    return <UserView {...props} />;
+  } else return <div>Something went wrong</div>;
 };
-
-export default Layout;
+const mapStateToProps = (state) => ({
+  ...state,
+});
+export default connect(mapStateToProps)(Layout);

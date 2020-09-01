@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Input from "./Inputs/Input";
 import "./Forms.css";
+import { setUser } from "../../js/actions/index";
+import { connect } from "react-redux";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -18,7 +20,15 @@ const Login = (props) => {
         withCredentials: true,
       })
       .then((res) => {
-        res.status === 200 && redirectToMain();
+        if (res.status === 200) {
+          console.log(res);
+          props.setUser({
+            user_id: res.data.user_id,
+            email: res.data.email,
+            is_admin: res.data.is_admin,
+          });
+          redirectToMain();
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -51,4 +61,11 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+  ...state,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setUser: (payload) => dispatch(setUser(payload)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

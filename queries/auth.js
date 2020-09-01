@@ -55,7 +55,14 @@ const logIn = async (req, res, next) => {
       res.status(400).json({ message: "Password incorrect." });
     //generate token
     const token = generateJWToken(user.user_id);
-    res.cookie("token", token, { httpOnly: true }).sendStatus(200);
+    res
+      .cookie("token", token, { httpOnly: true })
+      .json({
+        user_id: user.user_id,
+        email: user.email,
+        is_admin: user.is_admin,
+      })
+      .sendStatus(200);
   } catch (err) {
     next(err);
   }
