@@ -29,9 +29,6 @@ const UserTableRow = ({ user, reloadUsers }) => {
 
   return (
     <tr>
-      <td>
-        <input type="checkbox" />
-      </td>
       <td>{user.email}</td>
       <td>{user.phone_number}</td>
       <td>
@@ -41,6 +38,7 @@ const UserTableRow = ({ user, reloadUsers }) => {
           <Button
             text="Approve"
             handleClick={() => updateApproved(!user.is_approved)}
+            color="green"
           />
         )}
       </td>
@@ -49,16 +47,18 @@ const UserTableRow = ({ user, reloadUsers }) => {
           <Button
             text="Remove"
             handleClick={() => updateAdmin(!user.is_admin)}
+            color="blue"
           />
         ) : (
           <Button
             text="Make Admin"
             handleClick={() => updateAdmin(!user.is_admin)}
+            color="blue"
           />
         )}
       </td>
       <td>
-        <Button text="Delete" handleClick={deleteUser} />
+        <Button text="Delete" handleClick={deleteUser} color="red" />
       </td>
     </tr>
   );

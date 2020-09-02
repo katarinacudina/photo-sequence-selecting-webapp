@@ -1,6 +1,6 @@
 import React from "react";
-import AdminView from "../Administrator/AdminView";
-import UserView from "./UserView";
+import AdminView from "../Administrator/AdminHomepage";
+import UserView from "./UserHomepage";
 import { connect } from "react-redux";
 
 const Layout = (props) => {

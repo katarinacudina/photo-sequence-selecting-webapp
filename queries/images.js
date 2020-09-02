@@ -13,20 +13,35 @@ const getAllImages = async (req, res, next) => {
 const getImagesForUser = async (req, res, next) => {
   try {
     let images = await db.any(
-      `SELECT image_name
+      `SELECT image_id,image_name
     FROM   images 
     WHERE  NOT EXISTS (
        SELECT  
        FROM   reviewed_images
        WHERE  image_id = images.image_id and user_id = $1
        );`,
-      req.body.user_id
+      req.params.user_id
     );
     res.status(200).json(images);
   } catch (error) {
     next(error);
   }
 };
+const getRejectedImages = async (req, res, next) => {
+  const review_state = 2;
+  try {
+    let images = await db.any(
+      `SELECT images.image_id, images.image_name, selection, comments, id FROM images 
+      INNER JOIN reviewed_images ON images.image_id = reviewed_images.image_id 
+       WHERE review_state = $1 AND user_id = $2;`,
+      [review_state, req.params.user_id]
+    );
+    res.status(200).json(images);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getApprovedImages = async (req, res, next) => {
   try {
     const review_state = 1;
@@ -108,4 +123,5 @@ module.exports = {
   getPendingImages,
   insertSelection,
   reviewImage,
+  getRejectedImages,
 };

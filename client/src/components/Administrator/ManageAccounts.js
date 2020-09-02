@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import UserTable from "./UserTable";
+import "./AdminView.css";
+import { Link } from "react-router-dom";
 
 const ManageAccounts = () => {
   useEffect(() => {
@@ -15,8 +17,10 @@ const ManageAccounts = () => {
   };
   const reloadUsers = () => getUsers();
   return (
-    <div>
+    <div className="manage-accounts">
+      <div className="title">Manage accounts</div>
       <UserTable users={users} reloadUsers={reloadUsers} />
+      <Link to="/home">Back to homepage</Link>
     </div>
   );
 };

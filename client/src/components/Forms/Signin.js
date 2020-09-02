@@ -20,23 +20,27 @@ const Signin = (props) => {
         phoneNumber,
       })
       .then((res) => {
-        console.log(res.status);
         if (res.status === 200) props.history.push("/auth/login");
+        else if (res.status === 400) alert(res.message);
       })
 
-      .catch((err) => console.log(err));
+      .catch((err) => alert("Error signing in !"));
   };
+
   return (
     <div className="signin-container">
       <form className="signin-form" onSubmit={formSubmitHandler}>
-        <h2>Sign up</h2>
+        <div className="form-title">Sign up</div>
+
         <Input
           name="E-mail"
           value={email}
+          type="email"
           setValue={setEmail}
           maxLength="50"
-          placeholder="person@example.com"
+          placeholder="Enter e-mail"
         />
+
         <Input
           name="Password"
           value={password}
@@ -49,12 +53,12 @@ const Signin = (props) => {
           value={phoneNumber}
           setValue={setPhoneNumber}
           maxLength="20"
-          placeholder="eg. +385931236455"
+          placeholder="Enter phone number"
         />
 
-        <button className="default-button"> Submit </button>
+        <button className="default-button black"> Submit </button>
         <label>
-          Already a member? <Link to="/auth/login">Log in</Link>
+          Already have an account? <Link to="/auth/login">Log in</Link>
         </label>
       </form>
     </div>

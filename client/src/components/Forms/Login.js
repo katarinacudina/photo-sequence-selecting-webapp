@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Input from "./Inputs/Input";
@@ -16,19 +16,23 @@ const Login = (props) => {
   };
   const checkUser = () => {
     axios
-      .get(`http://localhost:3000/auth/logIn/${email}/${password}`, {
-        withCredentials: true,
-      })
+      .post(
+        `http://localhost:3000/auth/logIn`,
+        { email, password },
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
           props.setUser({
             user_id: res.data.user_id,
             email: res.data.email,
             is_admin: res.data.is_admin,
           });
+
           redirectToMain();
-        }
+        } else if (res.status === 400) alert(res.message);
       })
       .catch((err) => console.log(err));
   };
@@ -36,23 +40,25 @@ const Login = (props) => {
   return (
     <div className="signin-container">
       <form className="signin-form" onSubmit={formSubmitHandler}>
-        <h2>Log In</h2>
+        <div className="form-title">Log in</div>
         <Input
           name="E-mail"
           value={email}
+          type="email"
           setValue={setEmail}
           maxLength="50"
-          placeholder="person@example.com"
+          placeholder="Enter email"
         />
         <Input
           name="Password"
           value={password}
+          type="password"
           setValue={setPassword}
           maxLength="50"
           placeholder="Enter password"
         />
 
-        <button className="default-button"> Submit </button>
+        <button className="default-button black"> Submit </button>
         <label>
           Don't have an account? <Link to="/auth/signup">Sign up</Link>
         </label>

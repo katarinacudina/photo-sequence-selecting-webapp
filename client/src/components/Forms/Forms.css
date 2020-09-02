@@ -12,3 +12,9 @@
   transform: translate(-50%, -50%);
   padding: 2% 4%;
 }
+.form-title {
+  font-size: xx-large;
+  margin-bottom: 1em;
+  color: #282828;
+  font-weight: lighter;
+}

@@ -1,13 +1,11 @@
 import React from "react";
 import UserTableRow from "./UserTableRow";
-import Button from "../Forms/Inputs/Button";
 
 const UserTable = ({ users, reloadUsers }) => {
   return (
-    <table>
+    <table className="user-table">
       <thead>
         <tr>
-          <th>*</th>
           <th>E-mail</th>
           <th>Phone Number</th>
           <th>Is Approved</th>
@@ -20,14 +18,6 @@ const UserTable = ({ users, reloadUsers }) => {
           <UserTableRow user={user} key={index} reloadUsers={reloadUsers} />
         ))}
       </tbody>
-      <tfoot>
-        <tr>
-          {/* <td>
-            <Button text="Approve selected" />{" "}
-            <Button text="Promote to admin" />
-          </td> */}
-        </tr>
-      </tfoot>
     </table>
   );
 };

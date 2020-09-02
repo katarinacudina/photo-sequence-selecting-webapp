@@ -46,10 +46,10 @@ const logIn = async (req, res, next) => {
     //find user in database
     let user = await db.one(
       "SELECT * FROM account WHERE email = ${email};",
-      req.params
+      req.body
     );
     //check if hashpassword is same as sent password
-    const passwordsMatch = comparePassword(user.password, req.params.password);
+    const passwordsMatch = comparePassword(user.password, req.body.password);
     //send status 200
     if (!passwordsMatch)
       res.status(400).json({ message: "Password incorrect." });

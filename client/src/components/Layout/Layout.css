@@ -1,0 +1,16 @@
+.user-view__container {
+  display: flex;
+  justify-content: center;
+  padding-top: 20vh;
+}
+.user-view__title {
+  font-size: xx-large;
+  text-align: center;
+}
+.user-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: fit-content;
+  align-items: center;
+}

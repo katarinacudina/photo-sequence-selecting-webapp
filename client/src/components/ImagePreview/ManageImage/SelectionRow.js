@@ -8,13 +8,16 @@ const SelectionRow = ({
   displaySelection,
 }) => {
   return (
-    <div className="selection-row">
-      <div onClick={() => displaySelection(index)}>
-        x: {selection.x}, y: {selection.y}, width: {selection.width}, height:{" "}
-      </div>
-      {selection.height}
-      <FontAwesomeIcon icon="times" onClick={() => removeFromArray(index)} />
-    </div>
+    <tr className="selection-row">
+      <td onClick={() => displaySelection(index)}>
+        x: {selection.x}, y: {selection.y}, width: {selection.width}, height:
+        {selection.height}
+      </td>
+
+      <td>
+        <FontAwesomeIcon icon="times" onClick={() => removeFromArray(index)} />
+      </td>
+    </tr>
   );
 };
 

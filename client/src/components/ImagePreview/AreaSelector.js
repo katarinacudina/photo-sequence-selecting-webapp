@@ -13,11 +13,10 @@ function AreaSelector(props) {
   const [currentSelection, setSelection] = useState({});
 
   const submitSelection = () => {
-    const user_id = 10;
     axios
       .post(`http://localhost:3000/images/insertSelection`, {
         image_id: props.imageToDisplay.image_id,
-        user_id,
+        user_id: props.user_id,
         selection: JSON.stringify(selectionArray),
       })
       .then((res) => {
@@ -78,7 +77,6 @@ function AreaSelector(props) {
   }, [props.imageToDisplay]);
 
   useEffect(() => {
-    console.log(props);
     loadImage();
   }, []);
   return (
@@ -95,9 +93,15 @@ function AreaSelector(props) {
       ) : (
         <ManageImage
           addSelection={addSelection}
-          selection={selectionArray}
+          selection={
+            props.view === "review-existing-images"
+              ? props.imageToDisplay.selection
+              : selectionArray
+          }
           removeFromArray={removeFromArray}
           submitSelection={submitSelection}
+          displaySelection={displaySelection}
+          {...props}
         />
       )}
     </div>

@@ -1,3 +1,20 @@
+.image-slider__container {
+  padding: 0.25rem 0.8rem;
+}
+.image-slider__title {
+  margin-bottom: 0.25rem;
+  font-size: x-large;
+  font-weight: lighter;
+}
+.no-images {
+  text-align: center;
+  margin-top: 25vh;
+}
+.no-images__text {
+  color: gray;
+  font-size: xx-large;
+  margin-bottom: 0.25rem;
+}
 .slider-container {
   display: flex;
   flex-direction: column;
@@ -19,7 +36,7 @@
   display: flex;
   align-items: center;
 }
-.selection-row > svg {
+.selection-row svg {
   cursor: pointer;
 }
 .slider {

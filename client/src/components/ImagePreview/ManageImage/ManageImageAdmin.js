@@ -49,8 +49,12 @@ const ManageImageAdmin = (props) => {
         maxLength={500}
       />
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button text="Reject" handleClick={() => reviewImage(2)} />
-        <Button text="Approve" handleClick={() => reviewImage(1)} />
+        <Button color="red" text="Reject" handleClick={() => reviewImage(2)} />
+        <Button
+          color="green"
+          text="Approve"
+          handleClick={() => reviewImage(1)}
+        />
       </div>
     </div>
   );

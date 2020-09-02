@@ -1,33 +1,42 @@
 import React, { useEffect, useState } from "react";
-
 import AreaSelector from "./AreaSelector";
 import Slider from "./Slider";
+import Loader from "../Loader/Loader";
 import "./ImagePreview.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReviewImagePreview from "./ReviewImagePreview";
+import { connect } from "react-redux";
 
-const ImageViewer = (props) => {
+const ImageSlider = (props) => {
   const loadImageList = () => {
-    if (props.view === "review-images")
-      axios
-        .get("http://localhost:3000/images/0")
-        .then((res) => setImageList(res.data))
-        .catch((err) => console.log(err));
-    else
-      axios
-        .get("http://localhost:3000/images/")
-        .then((res) => setImageList(res.data))
-        .catch((error) => console.log("Something went wrong", error));
+    var route = "";
+    if (props.view === "review-new-images")
+      route = `http://localhost:3000/images/getImagesForUser/${props.user_id}`;
+    else if (props.view === "review-existing-images")
+      route = `http://localhost:3000/images/getRejectedImages/${props.user_id}`;
+    else if (props.view === "admin-review-images")
+      route = "http://localhost:3000/images/0";
+    else if (props.view === "all-images")
+      route = "http://localhost:3000/images";
+
+    axios
+      .get(route)
+      .then((res) => {
+        setImageList(res.data);
+        setIsLoaded(true);
+      })
+      .catch((err) => console.log(err));
   };
+
   useEffect(() => {
+    console.log(props.view);
     async function fetchData() {
       await loadImageList();
     }
     fetchData();
   }, []);
   const nextImage = (addition) => {
-    console.log("jesmo tu", addition);
     let index = currentImageIndex + addition;
     setIndex(index);
   };
@@ -35,49 +44,48 @@ const ImageViewer = (props) => {
   /**USE STATE */
   const [imageList, setImageList] = useState([]);
   const [currentImageIndex, setIndex] = useState(0);
-  if (imageList.length > 0 && props.view === "all-images")
-    return (
-      <>
-        <div>
-          Image {currentImageIndex + 1} out of {imageList.length}
-        </div>
-        <Slider
-          nextImage={nextImage}
-          imageToDisplay={imageList[currentImageIndex]}
-        />
+  const [isLoaded, setIsLoaded] = useState(false);
 
-        <Link to="/home">Back to homepage</Link>
-      </>
-    );
-  else if (imageList.length > 0 && props.view === "undefined")
-    return (
-      <>
-        <div>
-          Image {currentImageIndex + 1} out of {imageList.length}
+  if (isLoaded) {
+    if (imageList.length > 0) {
+      return (
+        <div className="image-slider__container">
+          <div className="image-slider__title">
+            Image {currentImageIndex + 1} out of {imageList.length}
+          </div>
+          {props.view === "admin-review-images" ? (
+            <ReviewImagePreview
+              nextImage={nextImage}
+              imageToDisplay={imageList[currentImageIndex]}
+              {...props}
+            />
+          ) : props.view === "all-images" ? (
+            <Slider
+              nextImage={nextImage}
+              imageToDisplay={imageList[currentImageIndex]}
+            />
+          ) : (
+            <AreaSelector
+              nextImage={nextImage}
+              imageToDisplay={imageList[currentImageIndex]}
+              {...props}
+            />
+          )}
+
+          <Link to="/home">Back to homepage</Link>
         </div>
-        <AreaSelector
-          nextImage={nextImage}
-          imageToDisplay={imageList[currentImageIndex]}
-          {...props}
-        />
-        <Link to="/home">Back to homepage</Link>
-      </>
-    );
-  else if (imageList.length > 0 && props.view === "review-images")
-    return (
-      <>
-        <div>
-          Image {currentImageIndex + 1} out of {imageList.length}
+      );
+    } else
+      return (
+        <div className="no-images">
+          <div className="no-images__text">No images to display</div>
+          <Link to="/home">Back to homepage</Link>
         </div>
-        <ReviewImagePreview
-          nextImage={nextImage}
-          imageToDisplay={imageList[currentImageIndex]}
-          {...props}
-        />
-        <Link to="/home">Back to homepage</Link>
-      </>
-    );
-  else return <div>Loading</div>;
+      );
+  } else return <Loader />;
 };
+const mapStateToProps = (state) => ({
+  ...state,
+});
 
-export default ImageViewer;
+export default connect(mapStateToProps)(ImageSlider);
